@@ -74,8 +74,9 @@ typedef NS_ENUM(NSUInteger, ACEDrawingMode) {
 - (void)loadImage:(UIImage *)image;
 - (void)loadImageData:(NSData *)imageData;
 
-// erase all
+// actions
 - (void)clear;
+- (void)refresh;
 
 // cleanup in preparation for taking a snapshot
 - (void)prepareForSnapshot;
@@ -112,5 +113,9 @@ typedef NS_ENUM(NSUInteger, ACEDrawingMode) {
 - (void)drawingView:(ACEDrawingView *)view didEndDrawUsingTool:(id<ACEDrawingTool>)tool;
 - (void)drawingView:(ACEDrawingView *)view didRedoDrawUsingTool:(id<ACEDrawingTool>)tool;
 - (void)drawingView:(ACEDrawingView *)view didUndoDrawUsingTool:(id<ACEDrawingTool>)tool;
+
+- (void)drawingViewDidUndoLastStep:(ACEDrawingView *)view;
+- (void)drawingViewDidRedoLastStep:(ACEDrawingView *)view;
+- (void)drawingViewDidClear:(ACEDrawingView *)view;
 
 @end

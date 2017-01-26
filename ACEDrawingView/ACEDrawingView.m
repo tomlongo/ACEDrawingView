@@ -464,10 +464,18 @@
         }
     }
     
+    [self refresh];
+    
+    if([self.delegate respondsToSelector:@selector(drawingViewDidClear:)]) {
+        [self.delegate drawingViewDidClear:self];
+    }
+    
+}
+
+- (void)refresh {
     [self.redoStates removeAllObjects];
     [self.undoStates removeAllObjects];
     [self.pathArray removeAllObjects];
-    self.backgroundImage = nil;
     [self updateCacheImage:YES];
     [self setNeedsDisplay];
 }
@@ -534,6 +542,11 @@
             [self.delegate drawingView:self didUndoDrawUsingTool:undoState.tool];
         }
     }
+    
+    if([self.delegate respondsToSelector:@selector(drawingViewDidUndoLastStep:)]) {
+        [self.delegate drawingViewDidUndoLastStep:self];
+    }
+    
 }
 
 - (BOOL)canRedo
@@ -568,6 +581,11 @@
             [self.delegate drawingView:self didRedoDrawUsingTool:redoState.tool];
         }
     }
+    
+    if([self.delegate respondsToSelector:@selector(drawingViewDidRedoLastStep:)]) {
+        [self.delegate drawingViewDidRedoLastStep:self];
+    }
+    
 }
 
 - (BOOL)lastStateForTool:(id<ACEDrawingTool>)tool inStateArray:(NSArray *)stateArray
